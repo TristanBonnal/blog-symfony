@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{title}}{% endblock %}
+
+{% block body %}
+    <section class="articles">
+        {% for post in posts %}
+        <article class="my-3 my-2">
+            <h2>{{post.title}}</h2>
+            <div class="metadata">Ecrit le {{post.createdAt|date('d/m/Y')}} à {{ post.createdAt | date('H:m')}} dans Divers</div>
+            <div class="content">
+                <img src="{{post.image}}" alt="">
+                <p>{{ post.content }}</p>
+                <a href="{{path('article', {'id': post.id})}}" class="btn btn-primary">Voir</a>
+                <hr>
+            </div>
+        </article>
+        {% endfor %}
+    </section>
+{% endblock %}
