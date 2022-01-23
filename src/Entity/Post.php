@@ -28,6 +28,12 @@ class Post
     #[ORM\Column(type: 'datetime_immutable')]
     private $createdAt;
 
+    #[ORM\Column(type: 'datetime', nullable: true)]
+    private $updateAt;
+
+    #[ORM\Column(type: 'integer', nullable: true)]
+    private $nbLikes;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -89,6 +95,30 @@ class Post
     public function setCreatedAt(\DateTimeImmutable $createdAt): self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getUpdateAt(): ?\DateTimeInterface
+    {
+        return $this->updateAt;
+    }
+
+    public function setUpdateAt(?\DateTimeInterface $updateAt): self
+    {
+        $this->updateAt = $updateAt;
+
+        return $this;
+    }
+
+    public function getNbLikes(): ?int
+    {
+        return $this->nbLikes;
+    }
+
+    public function setNbLikes(?int $nbLikes): self
+    {
+        $this->nbLikes = $nbLikes;
 
         return $this;
     }
