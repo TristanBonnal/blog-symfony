@@ -53,20 +53,35 @@ class BlogController extends AbstractController
         ]);
     }
 
-    /**
-     * Post update
-     * 
-     * @Route("/post/update/{id}", requirements={"id"="\d+"})
-     */
-    public function update(int $id, PostRepository $postRepository, EntityManagerInterface $doctrine)
+    #[Route("/post/update/{id}", name: "post_update", requirements: ["id" => "\d+"])]
+    public function update(int $id, PostRepository $postRepository, EntityManagerInterface $doctrine, Request $request)
     {
         $post = $postRepository->find($id);
 
-        $post->setTitle('Avatar ' . mt_rand(2, 99));
+        $form = $this->createFormBuilder($post)
+        ->add('title')
+        ->add('author')
+        ->add('content')
+        ->add('image', TextType::class)
+        ->getForm();
+
+        $form->handleRequest($request); 
 
         $doctrine->flush();
 
-        return $this->redirectToRoute("posts");
+        if ($form->isSubmitted() && $form->isValid()) {
+            $post->setUpdateAt(new \DateTime());
+
+            $doctrine->persist($post);
+            $doctrine->flush();
+
+            return $this->redirectToRoute('post', ['id' => $post->getId()]);
+        }
+
+        return $this->renderForm('blog/create.html.twig', [
+            'title' => 'Modifier',
+            'postForm' => $form
+        ]);
     }
 
 
