@@ -11,7 +11,8 @@
             <div class="content">
                 <img src="{{post.image}}" alt="">
                 <p>{{ post.content }}</p>
-                <a href="{{path('article', {'id': post.id})}}" class="btn btn-primary">Voir</a>
+                <a href="{{path('post', {'id': post.id})}}" class="btn btn-primary">Voir</a>
+                <a href="{{path('post_delete', {'id': post.id})}}" class="btn btn-danger">Supprimer</a>
                 <hr>
             </div>
         </article>
