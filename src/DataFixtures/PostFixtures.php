@@ -13,7 +13,7 @@ class PostFixtures extends Fixture
     {
         for ($i = 1; $i <= 5; $i++) {
             $post = new Post;
-            $author = new Author;
+            $author = $manager->find(Author::class, rand(1,4));
             $post->setTitle("Article n° $i")
                  ->setAuthor($author)
                  ->setContent("Contenu de l'article n° $i")

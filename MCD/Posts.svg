@@ -1,0 +1,80 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+
+<svg width="434" height="120" view_box="0 0 434 120"
+xmlns="http://www.w3.org/2000/svg"
+xmlns:link="http://www.w3.org/1999/xlink">\n\n<desc>Généré par Mocodo 2.3.7 le Tue, 25 Jan 2022 09:10:39</desc>
+
+<rect id="frame" x="0" y="0" width="434" height="120" fill="#f7f7f7" stroke="none" stroke-width="0"/>
+
+<!-- Association writes -->
+<line x1="43" y1="60" x2="135" y2="60" stroke="#9970ab" stroke-width="2"/>
+<text x="82" y="77.0" fill="#1b7837" font-family="Verdana" font-size="12">0,N</text>
+<line x1="222" y1="60" x2="135" y2="60" stroke="#9970ab" stroke-width="2"/>
+<text x="167" y="77.0" fill="#1b7837" font-family="Verdana" font-size="12">1,1</text>
+<g id="association-writes">
+	<path d="M 147 35 a 14 14 90 0 1 14 14 V 60 h -52 V 49 a 14 14 90 0 1 14 -14" fill="#c2a5cf" stroke="#c2a5cf" stroke-width="0"/>
+	<path d="M 161 60.0 v 11 a 14 14 90 0 1 -14 14 H 123 a 14 14 90 0 1 -14 -14 V 60.0 H 52" fill="#e7d4e8" stroke="#e7d4e8" stroke-width="0"/>
+	<rect x="109" y="35" width="52" height="50" fill="none" rx="14" stroke="#9970ab" stroke-width="2"/>
+	<line x1="109" y1="60" x2="161" y2="60" stroke="#9970ab" stroke-width="1"/>
+	<text x="116" y="52.7" fill="#000000" font-family="Verdana" font-size="12">writes</text>
+</g>
+
+<!-- Association has -->
+<line x1="222" y1="60" x2="301" y2="60" stroke="#9970ab" stroke-width="2"/>
+<text x="256" y="77.0" fill="#1b7837" font-family="Verdana" font-size="12">0,N</text>
+<line x1="388" y1="60" x2="301" y2="60" stroke="#9970ab" stroke-width="2"/>
+<text x="325" y="77.0" fill="#1b7837" font-family="Verdana" font-size="12">1,1</text>
+<g id="association-has">
+	<path d="M 305 35 a 14 14 90 0 1 14 14 V 60 h -36 V 49 a 14 14 90 0 1 14 -14" fill="#c2a5cf" stroke="#c2a5cf" stroke-width="0"/>
+	<path d="M 319 60.0 v 11 a 14 14 90 0 1 -14 14 H 297 a 14 14 90 0 1 -14 -14 V 60.0 H 36" fill="#e7d4e8" stroke="#e7d4e8" stroke-width="0"/>
+	<rect x="283" y="35" width="36" height="50" fill="none" rx="14" stroke="#9970ab" stroke-width="2"/>
+	<line x1="283" y1="60" x2="319" y2="60" stroke="#9970ab" stroke-width="1"/>
+	<text x="290" y="52.7" fill="#000000" font-family="Verdana" font-size="12">has</text>
+</g>
+
+<!-- Entity COMMENT -->
+<g id="entity-COMMENT">
+	<g id="frame-COMMENT">
+		<rect x="351" y="26" width="74" height="25" fill="#a6dba0" stroke="#a6dba0" stroke-width="0"/>
+		<rect x="351" y="51.0" width="74" height="43" fill="#d9f0d3" stroke="#d9f0d3" stroke-width="0"/>
+		<rect x="351" y="26" width="74" height="68" fill="none" stroke="#5aae61" stroke-width="2"/>
+		<line x1="351" y1="51" x2="425" y2="51" stroke="#5aae61" stroke-width="1"/>
+	</g>
+	<text x="356" y="43.7" fill="#000000" font-family="Verdana" font-size="12">COMMENT</text>
+	<text x="356" y="68.8" fill="#000000" font-family="Verdana" font-size="12">username</text>
+	<line x1="356" y1="71" x2="417" y2="71" stroke="#000000" stroke-width="1"/>
+	<text x="356" y="85.8" fill="#000000" font-family="Verdana" font-size="12">content</text>
+</g>
+
+<!-- Entity POST -->
+<g id="entity-POST">
+	<g id="frame-POST">
+		<rect x="193" y="9" width="58" height="25" fill="#a6dba0" stroke="#a6dba0" stroke-width="0"/>
+		<rect x="193" y="34.0" width="58" height="77" fill="#d9f0d3" stroke="#d9f0d3" stroke-width="0"/>
+		<rect x="193" y="9" width="58" height="102" fill="none" stroke="#5aae61" stroke-width="2"/>
+		<line x1="193" y1="34" x2="251" y2="34" stroke="#5aae61" stroke-width="1"/>
+	</g>
+	<text x="205" y="26.7" fill="#000000" font-family="Verdana" font-size="12">POST</text>
+	<text x="198" y="51.7" fill="#000000" font-family="Verdana" font-size="12">title</text>
+	<line x1="198" y1="54" x2="222" y2="54" stroke="#000000" stroke-width="1"/>
+	<text x="198" y="68.8" fill="#000000" font-family="Verdana" font-size="12">content</text>
+	<text x="198" y="85.8" fill="#000000" font-family="Verdana" font-size="12">image</text>
+	<text x="198" y="102.8" fill="#000000" font-family="Verdana" font-size="12">nbLikes</text>
+</g>
+
+<!-- Entity AUTHOR -->
+<g id="entity-AUTHOR">
+	<g id="frame-AUTHOR">
+		<rect x="9" y="26" width="68" height="25" fill="#a6dba0" stroke="#a6dba0" stroke-width="0"/>
+		<rect x="9" y="51.0" width="68" height="43" fill="#d9f0d3" stroke="#d9f0d3" stroke-width="0"/>
+		<rect x="9" y="26" width="68" height="68" fill="none" stroke="#5aae61" stroke-width="2"/>
+		<line x1="9" y1="51" x2="77" y2="51" stroke="#5aae61" stroke-width="1"/>
+	</g>
+	<text x="17" y="43.7" fill="#000000" font-family="Verdana" font-size="12">AUTHOR</text>
+	<text x="14" y="68.8" fill="#000000" font-family="Verdana" font-size="12">firstname</text>
+	<line x1="14" y1="71" x2="72" y2="71" stroke="#000000" stroke-width="1"/>
+	<text x="14" y="85.8" fill="#000000" font-family="Verdana" font-size="12">lastname</text>
+</g>
+</svg>
