@@ -1,7 +1,7 @@
 app = {
     init: function () {
         const deleteBtns = document.querySelectorAll('.delete');
-        for (deleteBtn of deleteBtns) {
+        for (let deleteBtn of deleteBtns) {
             deleteBtn.addEventListener('click', app.handleDelete)
         }
     },

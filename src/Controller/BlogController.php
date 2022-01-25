@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Author;
 use App\Entity\Post;
 use App\Repository\PostRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -31,7 +32,7 @@ class BlogController extends AbstractController
 
         $form = $this->createFormBuilder($post)
                     ->add('title')
-                    ->add('author')
+                    ->add('author', Author::class)
                     ->add('content')
                     ->add('image', TextType::class)
                     ->getForm();
@@ -105,6 +106,16 @@ class BlogController extends AbstractController
             'title' => 'article',
             'post' => $post
         ]);
+    }
+
+    #[Route('/author/list/{id}', name: 'authors_posts')]
+    public function postsByAuthor(Author $author)
+    {
+        return $this->render('blog/home.html.twig',[
+            'title' => 'Accueil',
+            'posts' => $author->getPosts()
+        ]
+    );
     }
 
 }
