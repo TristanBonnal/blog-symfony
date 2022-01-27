@@ -37,7 +37,7 @@ class PostFixtures extends Fixture
         for ($i = 1; $i <= 10; $i++) {
             $newAuthor = new Author;
             $newAuthor->setFirstname($faker->firstName())
-                      ->setCreatedAt(new \DateTimeImmutable())
+                      ->setCreatedAt($faker->dateTimeBetween('-2 months', '-1 month'))
                       ->setLastname($faker->lastName());
             $authorsObjects[] = $newAuthor;
             $manager->persist($newAuthor);         
@@ -51,19 +51,21 @@ class PostFixtures extends Fixture
                  ->setContent($faker->paragraph(mt_rand(10,30)))
                  ->setImage('https://picsum.photos/id/' . mt_rand(1, 100) . '/550/250')
                  ->setCategory($categoriesObjects[mt_rand(0,count($categoriesObjects) - 1)])
-                 ->setCreatedAt(new \DateTimeImmutable());
+                 ->setCreatedAt($faker->dateTimeBetween('-1 week', '+1 week'));
+            $manager->persist($post);
                  
                  //Création commentaires 
                  for ($j = 3; $j <= 8; $j++) {
+                    $daysDiff = (new \DateTime())->diff($post->getCreatedAt())->days;
+
                      $comment = new Comment;
                      $comment->setUsername($faker->firstName())
                              ->setContent($faker->paragraph(mt_rand(1,3)))
-                             ->setCreatedAt(new \DateTimeImmutable())
+                             ->setCreatedAt(($faker->dateTimeBetween('-' . $daysDiff .'days')))
                              ->setPost($post);
                      $manager->persist($comment);
                 }
                     
-            $manager->persist($post);
         }
         $manager->flush();
 

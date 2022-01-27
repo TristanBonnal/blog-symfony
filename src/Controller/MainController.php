@@ -12,15 +12,11 @@ class MainController extends AbstractController
     #[Route('/', name: 'home')]
     public function home(PostRepository $repository): Response
     {
-        $posts = $repository->findAll();
-        dump($posts);
+        $posts = $repository->findBy([], ['createdAt' => 'DESC']);
         return $this->render('main/home.html.twig',[
             'title' => 'Accueil',
             'posts' => $posts
         ]
     );
     }
-
-   
-
 }
