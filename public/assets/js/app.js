@@ -6,6 +6,7 @@ app = {
         }
     },
 
+    
     handleDelete: (e) => {
         if (!window.confirm('Suppression article : En êtes vous sure Mme chaussure ?')) e.preventDefault();
     }

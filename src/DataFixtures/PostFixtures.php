@@ -11,7 +11,7 @@ class PostFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
-        for ($i = 1; $i <= 5; $i++) {
+        for ($i = 1; $i <= 2; $i++) {
             $post = new Post;
             $author = $manager->find(Author::class, rand(1,4));
             $post->setTitle("Article n° $i")
