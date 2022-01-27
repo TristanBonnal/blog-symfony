@@ -1,14 +1,16 @@
 {% extends "base.html.twig" %}
 {% block body %}
-    <h1>Nouvel Article</h1>
+    <h1>{{ updateForm ? 'Modifier l\'article ' : 'Nouvel article' }}</h1>
     {{ form_start(postForm) }} 
 
     {{ form_row(postForm.title, {'attr' : {'placeholder' : 'Titre de l\'article'}, 'label': 'Titre'}) }}
-    {{ form_row(postForm.author, {'attr' : {'placeholder' : 'Nom de l\'autheur'}, 'label': 'Autheur'}) }}
+    {{ form_row(postForm.author, {'attr' : {'placeholder' : 'Nom de l\'autheur'}, 'label': 'Auteur'}) }}
     {{ form_row(postForm.content, {'attr' : {'placeholder' : 'Contenu'}, 'label': 'Texte'}) }}
     {{ form_row(postForm.image, {'attr' : {'placeholder' : 'URL de l\'image'}, 'label': 'Image'}) }}
 
-    <button type="submit" class="btn btn-success">Enregistrer</button>
+    <button type="submit" class="btn btn-success">
+        {{ updateForm ? 'Enregistrer modifications' : 'Ajouter' }}
+    </button>
 
     {{ form_end(postForm) }}
 {% endblock %}
