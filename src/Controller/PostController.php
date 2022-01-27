@@ -9,25 +9,14 @@ use App\Repository\PostRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class BlogController extends AbstractController
+class PostController extends AbstractController
 {
-    #[Route('/', name: 'home')]
-    public function home(PostRepository $repository)
-    {
-        $posts = $repository->findAll();
-        dump($posts);
-        return $this->render('blog/home.html.twig',[
-            'title' => 'Accueil',
-            'posts' => $posts
-        ]
-    );
-    }
-
     #[Route('post/new', name: 'post_new')]
     #[Route('post/update/{id}', name: 'post_update')]
-    public function save(Request $request, EntityManagerInterface $manager, Post $post = null)
+    public function save(Request $request, EntityManagerInterface $manager, Post $post = null): Response
     {
         if (!isset($post)) {
             $post = new Post();
@@ -51,7 +40,7 @@ class BlogController extends AbstractController
         }
 
         //Render form (pas de données post)
-        return $this->renderForm('blog/create.html.twig', [
+        return $this->renderForm('post/create.html.twig', [
             'title' => 'Poster',
             'postForm' => $form,
             'updateForm' => $post->getId() != null //Si pas d'id, permet de modifier l'affichage twig pour un form d'update
@@ -60,7 +49,7 @@ class BlogController extends AbstractController
 
 
     #[Route("/post/delete/{id}", name: "post_delete", requirements: ["id" => "\d+"])]
-    public function delete($id, PostRepository $repo, EntityManagerInterface $manager)
+    public function delete($id, PostRepository $repo, EntityManagerInterface $manager): Response
     {
         $post = $repo->find($id);
 
@@ -73,9 +62,9 @@ class BlogController extends AbstractController
 
 
     #[Route('post/{id}', name: 'post', requirements: ['page' => '\d+'])]
-    public function post(Post $post)
+    public function post(Post $post): Response
     {
-        return $this->render('blog/post.html.twig', [
+        return $this->render('post/post.html.twig', [
             'title' => 'article',
             'post' => $post
         ]);
@@ -83,13 +72,12 @@ class BlogController extends AbstractController
 
 
     #[Route('/author/list/{id}', name: 'authors_posts')]
-    public function postsByAuthor(Author $author)
+    public function postsByAuthor(Author $author): Response
     {
-        return $this->render('blog/home.html.twig',[
+        return $this->render('post/home.html.twig',[
             'title' => 'Accueil',
             'posts' => $author->getPosts()
         ]
     );
     }
-
 }
