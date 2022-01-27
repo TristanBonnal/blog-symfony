@@ -3,3 +3,7 @@ writes, 0N AUTHOR, 11 POST
 POST: title, content, image, nbLikes
 has, 0N POST, 11 COMMENT
 COMMENT: username, content
+
+belongs to, 01 POST, 0N CATEGORY
+
+CATEGORY: title, description
