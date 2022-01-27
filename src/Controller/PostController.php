@@ -40,7 +40,7 @@ class PostController extends AbstractController
         }
 
         //Render form (pas de données post)
-        return $this->renderForm('post/create.html.twig', [
+        return $this->renderForm('post/form.html.twig', [
             'title' => 'Poster',
             'postForm' => $form,
             'updateForm' => $post->getId() != null //Si pas d'id, permet de modifier l'affichage twig pour un form d'update
@@ -74,7 +74,7 @@ class PostController extends AbstractController
     #[Route('/author/list/{id}', name: 'authors_posts')]
     public function postsByAuthor(Author $author): Response
     {
-        return $this->render('post/home.html.twig',[
+        return $this->render('post/list.html.twig',[
             'title' => 'Accueil',
             'posts' => $author->getPosts()
         ]
