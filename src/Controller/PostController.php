@@ -29,9 +29,9 @@ class PostController extends AbstractController
         //Redirection après validation du form
         if ($form->isSubmitted() && $form->isValid()) {
             if ($post->getId()) {
-                $post->setUpdateAt(new \DateTimeImmutable);
+                $post->setUpdateAt(new \DateTime);
             } else {
-                $post->setCreatedAt(new \DateTimeImmutable());
+                $post->setCreatedAt(new \DateTime());
             }
             $manager->persist($post);
             $manager->flush();
