@@ -47,6 +47,7 @@ class Post
     private $author;
 
     #[ORM\OneToMany(mappedBy: 'post', targetEntity: Comment::class, orphanRemoval: true)]
+    #[ORM\OrderBy(['createdAt' => 'DESC'])]
     private $comments;
 
     #[ORM\ManyToOne(targetEntity: Category::class, inversedBy: 'posts')]
