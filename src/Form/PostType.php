@@ -19,7 +19,7 @@ class PostType extends AbstractType
             ->add('content')
             ->add('image')
             ->add('author', EntityType::class, [ 
-                'class' => Author::class,           //Permet un choix parmi les relations d'objets
+                'class' => Author::class,         //Permet un choix parmi les relations d'objets
                 'choice_label' => 'firstname'
             ])
         ;
