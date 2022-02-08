@@ -4,12 +4,14 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-class User implements UserInterface, PasswordAuthenticatedUserInterface
+#[UniqueEntity(fields: "email", message: 'L\'email que vous avez indiquez est déjà utilisé')]  //Champs email unique
+class User implements UserInterface, PasswordAuthenticatedUserInterface  //Un User doit toujours implémenter les méthodes d'UserInterface au minimum
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -20,6 +22,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $username;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Assert\Email]
     private $email;
 
     #[ORM\Column(type: 'json')]
@@ -30,7 +33,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $password;
 
     #[Assert\EqualTo(propertyPath: "password", message: "Mots de passe différents")]
-    private $confirmPassword;
+    private $confirmPassword; //Propriété non présente en bdd (pas d'attributes ou annotations ORM)
 
     public function getId(): ?int
     {

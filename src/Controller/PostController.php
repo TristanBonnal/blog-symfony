@@ -41,7 +41,7 @@ class PostController extends AbstractController
 
         //Render form (pas de données post)
         return $this->renderForm('post/form.html.twig', [
-            'title' => 'Poster',
+            'title' => 'Nouvel article',
             'postForm' => $form,
             'updateForm' => $post->getId() != null //Si pas d'id, permet de modifier l'affichage twig pour un form d'update
         ]);
