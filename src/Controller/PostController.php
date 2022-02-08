@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Author;
+use App\Entity\Comment;
 use App\Entity\Post;
+use App\Form\CommentType;
 use App\Form\PostType;
 use App\Repository\PostRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -14,6 +16,34 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class PostController extends AbstractController
 {
+
+    #[Route('post/{id}', name: 'post', requirements: ['page' => '\d+'])]
+    public function show(Post $post, Request $request, EntityManagerInterface $manager): Response
+    {
+        $comment = new Comment;
+        $form = $this->createForm(CommentType::class, $comment);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $comment->setCreatedAt(new \DateTime());
+            $post->addComment($comment);
+            $manager->persist($comment);
+            $manager->flush();
+
+            return $this->redirectToRoute('post', ['id' => $post->getId()]);
+        }
+
+        return $this->renderForm('post/post.html.twig', [
+            'title' => 'Article n°' . $post->getId(),
+            'post' => $post,
+            'commentForm' => $form
+        ]);
+
+     
+    }
+
+
+
     #[Route('post/new', name: 'post_new')]
     #[Route('post/update/{id}', name: 'post_update')]
     public function save(Request $request, EntityManagerInterface $manager, Post $post = null): Response
@@ -58,16 +88,6 @@ class PostController extends AbstractController
         $manager->flush();
 
         return $this->redirectToRoute("home");
-    }
-
-
-    #[Route('post/{id}', name: 'post', requirements: ['page' => '\d+'])]
-    public function post(Post $post): Response
-    {
-        return $this->render('post/post.html.twig', [
-            'title' => 'article',
-            'post' => $post
-        ]);
     }
 
 
