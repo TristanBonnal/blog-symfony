@@ -17,7 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class PostController extends AbstractController
 {
 
-    #[Route('post/{id}', name: 'post', requirements: ['page' => '\d+'])]
+    #[Route('post/{id}', name: 'post', requirements: ['id' => '\d+'])]
     public function show(Post $post, Request $request, EntityManagerInterface $manager): Response
     {
         $comment = new Comment;
@@ -43,14 +43,12 @@ class PostController extends AbstractController
     }
 
 
-
     #[Route('post/new', name: 'post_new')]
-    #[Route('post/update/{id}', name: 'post_update')]
-    public function save(Request $request, EntityManagerInterface $manager, Post $post = null): Response
+    public function create(Request $request, EntityManagerInterface $manager): Response
     {
-        if (!isset($post)) {
-            $post = new Post();
-        }
+
+        $post = new Post();
+
 
         //Création formulaire
         $form = $this->createForm(PostType::class, $post);
@@ -73,7 +71,36 @@ class PostController extends AbstractController
         return $this->renderForm('post/form.html.twig', [
             'title' => 'Nouvel article',
             'postForm' => $form,
-            'updateForm' => $post->getId() != null //Si pas d'id, permet de modifier l'affichage twig pour un form d'update
+            'updateForm' => false // Permet d'utiliser un seul form pour la création et l'edition de post
+        ]);
+    }
+
+        #[Route('post/update/{id}', name: 'post_update')]
+        public function update(Request $request, EntityManagerInterface $manager, Post $post = null): Response
+        {
+            if (!$post) {
+                throw $this->createNotFoundException('Cet article n\'existe pas');
+            }
+
+            $form = $this->createForm(PostType::class, $post);
+            $form->handleRequest($request);
+    
+            if ($form->isSubmitted() && $form->isValid()) {
+                if ($post->getId()) {
+                    $post->setUpdateAt(new \DateTime);
+                } else {
+                    $post->setCreatedAt(new \DateTime());
+                }
+                $manager->persist($post);
+                $manager->flush();
+    
+                return $this->redirectToRoute('post', ['id' => $post->getId()]);
+            }
+
+        return $this->renderForm('post/form.html.twig', [
+            'title' => 'Nouvel article',
+            'postForm' => $form,
+            'updateForm' => true
         ]);
     }
 
