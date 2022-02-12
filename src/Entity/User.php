@@ -4,14 +4,11 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-#[UniqueEntity(fields: "email", message: 'L\'email que vous avez indiquez est déjà utilisé')]  //Champs email unique
-class User implements UserInterface, PasswordAuthenticatedUserInterface  //Un User doit toujours implémenter les méthodes d'UserInterface au minimum
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -19,38 +16,27 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface  //Un Us
     private $id;
 
     #[ORM\Column(type: 'string', length: 180, unique: true)]
-    private $username;
-
-    #[ORM\Column(type: 'string', length: 255)]
-    #[Assert\Email]
     private $email;
 
     #[ORM\Column(type: 'json')]
     private $roles = [];
 
     #[ORM\Column(type: 'string')]
-    #[Assert\Length(min: 8, minMessage: 'Minimum 8 charactères')]
     private $password;
-
-    #[Assert\EqualTo(propertyPath: "password", message: "Mots de passe différents")]
-    private $confirmPassword; //Propriété non présente en bdd (pas d'attributes ou annotations ORM)
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    /**
-     * @deprecated since Symfony 5.3, use getUserIdentifier instead
-     */
-    public function getUsername(): string
+    public function getEmail(): ?string
     {
-        return (string) $this->username;
+        return $this->email;
     }
 
-    public function setUsername(string $username): self
+    public function setEmail(string $email): self
     {
-        $this->username = $username;
+        $this->email = $email;
 
         return $this;
     }
@@ -62,7 +48,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface  //Un Us
      */
     public function getUserIdentifier(): string
     {
-        return (string) $this->username;
+        return (string) $this->email;
+    }
+
+    /**
+     * @deprecated since Symfony 5.3, use getUserIdentifier instead
+     */
+    public function getUsername(): string
+    {
+        return (string) $this->email;
     }
 
     /**
@@ -117,47 +111,5 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface  //Un Us
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
-    }
-
-
-    /**
-     * Get the value of email
-     */ 
-    public function getEmail()
-    {
-        return $this->email;
-    }
-
-    /**
-     * Set the value of email
-     *
-     * @return  self
-     */ 
-    public function setEmail($email)
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
-
-    /**
-     * Get the value of confirmPassword
-     */ 
-    public function getConfirmPassword()
-    {
-        return $this->confirmPassword;
-    }
-
-    /**
-     * Set the value of confirmPassword
-     *
-     * @return  self
-     */ 
-    public function setConfirmPassword($confirmPassword)
-    {
-        $this->confirmPassword = $confirmPassword;
-
-        return $this;
     }
 }
