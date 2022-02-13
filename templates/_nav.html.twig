@@ -16,9 +16,15 @@
             <li class="nav-item">
                 <a class="nav-link {{title == 'A propos' ? 'active' : ''}}" href="#">A propos</a>
             </li>
+            {% if not app.user %}
             <li class="nav-item">
                 <a class="nav-link {{title == 'A propos' ? 'active' : ''}}" href="{{ path('app_login') }}">Connexion</a>
             </li>
+            {% else %}
+            <li class="nav-item">
+                <a class="nav-link {{title == 'A propos' ? 'active' : ''}}" href="{{ path('app_logout') }}">Déconnexion</a>
+            </li>
+            {% endif %}
         </ul>
         <form class="d-flex">
             <input class="form-control me-sm-2" type="text" placeholder="Chercher">
