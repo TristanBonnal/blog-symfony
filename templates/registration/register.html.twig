@@ -10,6 +10,12 @@
     <h1>Inscription</h1>
 
     {{ form_start(registrationForm) }}
+        {{ form_row(registrationForm.firstname, {
+            label: 'Prénom'
+        }) }}
+        {{ form_row(registrationForm.lastname, {
+            label: 'Nom'
+        }) }}
         {{ form_row(registrationForm.email) }}
         {{ form_row(registrationForm.plainPassword, {
             label: 'Mot de passe'
