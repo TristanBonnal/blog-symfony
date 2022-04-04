@@ -17,6 +17,9 @@ use Symfony\Component\Routing\Annotation\Route;
 class PostController extends AbstractController
 {
 
+    /**
+     * Display one spécific post and a form allowing user to comment
+     */
     #[Route('post/{id}', name: 'post', requirements: ['id' => '\d+'])]
     public function show(Post $post, Request $request, EntityManagerInterface $manager): Response
     {
@@ -43,12 +46,12 @@ class PostController extends AbstractController
     }
 
 
+
     #[Route('post/new', name: 'post_new')]
     public function create(Request $request, EntityManagerInterface $manager): Response
     {
 
         $post = new Post();
-
 
         //Création formulaire
         $form = $this->createForm(PostType::class, $post);
@@ -71,7 +74,7 @@ class PostController extends AbstractController
         return $this->renderForm('post/form.html.twig', [
             'title' => 'Nouvel article',
             'postForm' => $form,
-            'updateForm' => false // Permet d'utiliser un seul form pour la création et l'edition de post
+            'updateForm' => false // Permet d'utiliser un seul form (meme template) pour la création et l'edition de post
         ]);
     }
 
