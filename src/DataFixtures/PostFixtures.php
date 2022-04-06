@@ -2,7 +2,7 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Author;
+use App\Entity\User;
 use App\Entity\Category;
 use App\Entity\Comment;
 use App\Entity\Post;
@@ -33,21 +33,21 @@ class PostFixtures extends Fixture
         }
 
         //Création auteurs
-        $authorsObjects = [];
+        $usersObjects = [];
         for ($i = 1; $i <= 10; $i++) {
-            $newAuthor = new Author;
-            $newAuthor->setFirstname($faker->firstName())
+            $newUser = new User;
+            $newUser->setFirstname($faker->firstName())
                       ->setCreatedAt($faker->dateTimeBetween('-2 months', '-1 month'))
                       ->setLastname($faker->lastName());
-            $authorsObjects[] = $newAuthor;
-            $manager->persist($newAuthor);         
+            $usersObjects[] = $newUser;
+            $manager->persist($newUser);         
         }
 
         //Création posts
         for ($i = 1; $i <= 20; $i++) {
             $post = new Post;
             $post->setTitle(ucfirst($faker->sentence(mt_rand(3,6))))
-                 ->setAuthor($authorsObjects[mt_rand(0, count($authorsObjects) - 1)])
+                 ->setUser($usersObjects[mt_rand(0, count($usersObjects) - 1)])
                  ->setContent($faker->paragraph(mt_rand(10,30)))
                  ->setImage('https://picsum.photos/id/' . mt_rand(1, 100) . '/550/250')
                  ->setCategory($categoriesObjects[mt_rand(0,count($categoriesObjects) - 1)])
@@ -59,7 +59,7 @@ class PostFixtures extends Fixture
                     $daysDiff = (new \DateTime())->diff($post->getCreatedAt())->days;
 
                      $comment = new Comment;
-                     $comment->setUsername($faker->firstName())
+                     $comment->setUser($usersObjects)
                              ->setContent($faker->paragraph(mt_rand(1,3)))
                              ->setCreatedAt(($faker->dateTimeBetween('-' . $daysDiff .'days')))
                              ->setPost($post);

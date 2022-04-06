@@ -42,9 +42,9 @@ class Post
     #[ORM\Column(type: 'integer', nullable: true)]
     private $nbLikes;
 
-    #[ORM\ManyToOne(targetEntity: Author::class, inversedBy: 'posts')]
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'posts')]
     #[ORM\JoinColumn(nullable: false)]
-    private $author;
+    private $user;
 
     #[ORM\OneToMany(mappedBy: 'post', targetEntity: Comment::class, orphanRemoval: true)]
     #[ORM\OrderBy(['createdAt' => 'DESC'])]
@@ -135,14 +135,14 @@ class Post
         return $this;
     }
 
-    public function getAuthor(): ?Author
+    public function getUser(): ?User
     {
-        return $this->author;
+        return $this->user;
     }
 
-    public function setAuthor(?Author $author): self
+    public function setUser(?User $user): self
     {
-        $this->author = $author;
+        $this->user = $user;
 
         return $this;
     }
