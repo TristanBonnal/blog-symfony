@@ -7,7 +7,7 @@
         {% for post in posts %}
         <article class="my-3 my-2">
             <h2>{{post.title}}</h2>
-            <div class="metadata">Ecrit le {{post.createdAt|date('d/m/Y')}} à {{ post.createdAt | date('H:m')}} par <a href="{{path('authors_posts', {id: post.author.id})}}">{{ post.author.firstname }}</a> dans {{ post.category.title }}</div>
+            <div class="metadata">Ecrit le {{post.createdAt|date('d/m/Y')}} à {{ post.createdAt | date('H:m')}} par <a href="{{path('users_posts', {id: post.user.id})}}">{{ post.user.firstname }}</a> dans {{ post.category.title }}</div>
             <div class="content">
                 <img class="img-fluid" src="{{post.image}}" alt="">
                 <p>{{ post.content }}</p>

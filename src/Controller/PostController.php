@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\Author;
+use App\Entity\User;
 use App\Entity\Comment;
 use App\Entity\Post;
 use App\Form\CommentType;
@@ -119,12 +119,12 @@ class PostController extends AbstractController
     }
 
 
-    #[Route('/author/list/{id}', name: 'authors_posts')]
-    public function postsByAuthor(Author $author): Response
+    #[Route('/user/list/{id}', name: 'users_posts')]
+    public function postsByUser(User $user): Response
     {
         return $this->render('post/list.html.twig',[
             'title' => 'Accueil',
-            'posts' => $author->getPosts()
+            'posts' => $user->getPosts()
         ]
     );
     }
