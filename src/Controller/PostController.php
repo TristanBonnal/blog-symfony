@@ -45,8 +45,6 @@ class PostController extends AbstractController
      
     }
 
-
-
     #[Route('post/new', name: 'post_new')]
     public function create(Request $request, EntityManagerInterface $manager): Response
     {
