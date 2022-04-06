@@ -22,7 +22,6 @@ class RegistrationFormType extends AbstractType
             ->add('email')
             ->add('firstname', TextType::class)
             ->add('lastname', TextType::class)
-
             ->add('agreeTerms', CheckboxType::class, [
                 'label' => 'Accepter les conditions d\'utilisation',
                 'mapped' => false,
@@ -33,8 +32,6 @@ class RegistrationFormType extends AbstractType
                 ],
             ])
             ->add('plainPassword', RepeatedType::class, [
-                // instead of being set onto the object directly,
-                // this is read and encoded in the controller
                 'type' => PasswordType::class,
                 'invalid_message' => 'Les mots de passe doivent être identiques',
                 'options' => ['attr' => ['class' => 'password-field']],
