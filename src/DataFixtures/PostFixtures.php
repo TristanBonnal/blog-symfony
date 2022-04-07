@@ -9,9 +9,15 @@ use App\Entity\Post;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class PostFixtures extends Fixture
 {
+    public function __construct (UserPasswordHasherInterface $hasher)
+    {
+        $this->hasher = $hasher;
+    }
+    
     public function load(ObjectManager $manager): void
     {
         $faker = Factory::create('fr_FR');
@@ -32,13 +38,17 @@ class PostFixtures extends Fixture
             $manager->persist($newCategory);
         }
 
-        //Création auteurs
+        //Création utilisateurs
         $usersObjects = [];
         for ($i = 1; $i <= 10; $i++) {
             $newUser = new User;
-            $newUser->setFirstname($faker->firstName())
-                      ->setCreatedAt($faker->dateTimeBetween('-2 months', '-1 month'))
-                      ->setLastname($faker->lastName());
+            $newUser
+                ->setFirstname($faker->firstName())
+                ->setLastname($faker->lastName())
+                ->setEmail($faker->email())
+                ->setPassword($this->hasher->hashPassword($newUser, 'admin'))
+                ->setCreatedAt($faker->dateTimeBetween('-2 months', '-1 month'))
+                ;
             $usersObjects[] = $newUser;
             $manager->persist($newUser);         
         }
@@ -59,16 +69,13 @@ class PostFixtures extends Fixture
                     $daysDiff = (new \DateTime())->diff($post->getCreatedAt())->days;
 
                      $comment = new Comment;
-                     $comment->setUser($usersObjects)
+                     $comment->setUser($usersObjects[array_rand($usersObjects)])
                              ->setContent($faker->paragraph(mt_rand(1,3)))
                              ->setCreatedAt(($faker->dateTimeBetween('-' . $daysDiff .'days')))
                              ->setPost($post);
                      $manager->persist($comment);
-                }
-                    
+                }     
         }
         $manager->flush();
-
-
     }
 }
