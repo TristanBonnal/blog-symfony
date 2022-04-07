@@ -23,7 +23,8 @@
         {% for comment in post.comments %}
             <div class="card my-3">
                 <div class="card-header">
-                    {{comment.username}} <small>le {{comment.createdAt|date('d/m/Y')}} à {{comment.createdAt|date('H:i')}}</small>
+                    {{comment.user.firstname}} {{comment.user.lastname}}
+                    <small>le {{comment.createdAt|date('d/m/Y')}} à {{comment.createdAt|date('H:i')}}</small>
                 </div>
                 <div class="card-body">
                     <p class="card-text">{{comment.content}}</p>
