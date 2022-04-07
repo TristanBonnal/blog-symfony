@@ -28,7 +28,15 @@ class PostController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            //Vérifie qu'un utilisateur est connecté pour pouvoir commenter
+            try {
+                $this->denyAccessUnlessGranted('COMMENT', $this->getUser());
+            } catch (\Exception $e) {
+                return $this->redirectToRoute('app_login');
+            }
+            // Persistence en bdd
             $comment->setCreatedAt(new \DateTime());
+            $comment->setUser($this->getUser());
             $post->addComment($comment);
             $manager->persist($comment);
             $manager->flush();
