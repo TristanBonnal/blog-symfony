@@ -42,16 +42,16 @@ class Post
     #[ORM\Column(type: 'integer', nullable: true)]
     private $nbLikes;
 
-    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'posts')]
-    #[ORM\JoinColumn(nullable: false)]
-    private $user;
-
     #[ORM\OneToMany(mappedBy: 'post', targetEntity: Comment::class, orphanRemoval: true)]
     #[ORM\OrderBy(['createdAt' => 'DESC'])]
     private $comments;
 
     #[ORM\ManyToOne(targetEntity: Category::class, inversedBy: 'posts')]
     private $category;
+
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'post')]
+    #[ORM\JoinColumn(nullable: false)]
+    private $user;
 
     public function __construct()
     {
@@ -135,18 +135,6 @@ class Post
         return $this;
     }
 
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
-
-    public function setUser(?User $user): self
-    {
-        $this->user = $user;
-
-        return $this;
-    }
-
     /**
      * @return Collection|Comment[]
      */
@@ -185,6 +173,18 @@ class Post
     public function setCategory(?Category $category): self
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }
