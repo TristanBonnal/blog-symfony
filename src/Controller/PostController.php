@@ -13,12 +13,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class PostController extends AbstractController
 {
 
     /**
-     * Display one spécific post and a form allowing user to comment
+     * Affiche un article et permet aux utilisateurs loggés de commenter
      */
     #[Route('post/{id}', name: 'post', requirements: ['id' => '\d+'])]
     public function show(Post $post, Request $request, EntityManagerInterface $manager): Response
@@ -54,21 +55,17 @@ class PostController extends AbstractController
     }
 
     #[Route('post/new', name: 'post_new')]
+    #[IsGranted('ROLE_MODERATOR')]
     public function create(Request $request, EntityManagerInterface $manager): Response
     {
-        $post = new Post();
-
         //Création formulaire
+        $post = new Post();
         $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
 
         //Redirection après validation du form
         if ($form->isSubmitted() && $form->isValid()) {
-            if ($post->getId()) {
-                $post->setUpdateAt(new \DateTime);
-            } else {
-                $post->setCreatedAt(new \DateTime());
-            }
+            $post->setUser($this->getUser());
             $manager->persist($post);
             $manager->flush();
 
