@@ -56,7 +56,6 @@ class PostController extends AbstractController
     #[Route('post/new', name: 'post_new')]
     public function create(Request $request, EntityManagerInterface $manager): Response
     {
-
         $post = new Post();
 
         //Création formulaire
@@ -132,7 +131,7 @@ class PostController extends AbstractController
     {
         return $this->render('post/list.html.twig',[
             'title' => 'Accueil',
-            'posts' => $user->getPosts()
+            'posts' => $user->getPost()
         ]
     );
     }
