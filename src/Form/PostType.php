@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Category;
 use App\Entity\User;
 use App\Entity\Post;
 use Symfony\Component\Form\AbstractType;
@@ -18,9 +19,10 @@ class PostType extends AbstractType
             ->add('title')
             ->add('content')
             ->add('image')
-            ->add('user', EntityType::class, [ 
-                'class' => User::class,         //Permet un choix parmi les relations d'objets
-                'choice_label' => 'firstname'
+            ->add('category', EntityType::class, [
+                'label' => 'Catégorie',
+                'class' => Category::class, 
+                'choice_label' => 'title'
             ])
         ;
     }
