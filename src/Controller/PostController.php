@@ -81,11 +81,14 @@ class PostController extends AbstractController
     }
 
         #[Route('post/update/{id}', name: 'post_update')]
+        #[IsGranted('ROLE_MODERATOR')]
         public function update(Request $request, EntityManagerInterface $manager, Post $post = null): Response
         {
             if (!$post) {
                 throw $this->createNotFoundException('Cet article n\'existe pas');
             }
+
+            $this->denyAccessUnlessGranted('POST_EDIT', $post, 'Accès refusé');
 
             $form = $this->createForm(PostType::class, $post);
             $form->handleRequest($request);
@@ -111,6 +114,7 @@ class PostController extends AbstractController
 
 
     #[Route("/post/delete/{id}", name: "post_delete", requirements: ["id" => "\d+"])]
+    #[IsGranted('ROLE_MODERATOR')]
     public function delete($id, PostRepository $repo, EntityManagerInterface $manager): Response
     {
         $post = $repo->find($id);

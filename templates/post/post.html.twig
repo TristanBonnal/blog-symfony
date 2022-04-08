@@ -8,12 +8,25 @@
             <h2>{{ post.title }}</h2>
             <div class="metadata">Ecrit le {{post.createdAt|date('d/m/Y')}} à {{ post.createdAt | date('H:m')}} par <a href="{{path('users_posts', {id: post.user.id})}}">{{ post.user.firstname }}</a>  dans {{ post.category.title }}</div>
             <div class="content">
-                <img src="{{ post.image }}" alt="">
+                <img class="img-fluid" src="{{ post.image }}" alt="">
                 <p>{{ post.content }}</p>
                 <p>Id ratione dolorum nemo, eum eius illum voluptas blanditiis quisquam quidem accusamus officia expedita consequuntur tempore dignissimos, odio ducimus harum! Consequatur temporibus quibusdam, facilis enim modi reiciendis illum aliquid libero.</p>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo fugiat recusandae aspernatur provident porro velit iusto eveniet adipisci necessitatibus ratione, atque vero, nemo sapiente deserunt! Repellendus cum ducimus tempora nam maiores, corporis error, odit reprehenderit adipisci, praesentium ipsam. Distinctio vel earum minima optio pariatur eaque totam, praesentium ducimus sit, magni libero deserunt ut expedita accusantium dolore, iure consequuntur nostrum at deleniti corrupti! Repudiandae libero minus saepe asperiores, quas vitae veniam harum dignissimos modi dolores aperiam fugit laboriosam ea vel! Commodi est fuga rem itaque maxime voluptatum modi mollitia accusantium assumenda corrupti, minus fugiat harum unde enim, dignissimos maiores consequatur nihil, vero velit? Nesciunt, doloremque molestias impedit voluptatem qui odit asperiores voluptate hic architecto incidunt sed optio deserunt tempore saepe repudiandae ipsa, provident velit dignissimos obcaecati iusto? Accusamus quam delectus molestias. Fugit consequatur quam molestiae iste. Magni explicabo amet mollitia fugit deleniti, soluta esse animi repellat, corrupti nam qui culpa perspiciatis eos dignissimos. Dolores, ad! Earum necessitatibus quidem ab tenetur inventore, odit modi pariatur? Quas quisquam reprehenderit quae praesentium, minus impedit expedita recusandae quidem nesciunt esse vel iste quo aliquid sequi doloribus error perspiciatis cum ipsum earum at excepturi. Perferendis eaque sit veritatis. Sit, veritatis quod? Cum magnam ducimus earum at!</p>
             </div>
             <a href="#postComment" class="btn btn-primary">Commenter</a>
+            {% if is_granted('POST_EDIT', post) %}
+                <a href="{{path('post_update', {'id': post.id})}}" class="btn btn-outline-primary">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+                    <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
+                    </svg>
+                </a>
+                <a href="{{path('post_delete', {'id': post.id})}}" class="delete btn btn-outline-danger">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                        <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                    </svg>
+                </a>
+            {% endif %}
             <a href="{{path('home')}}" class="btn btn-secondary">Retour à l'accueil</a>
         </article>
     </section>
