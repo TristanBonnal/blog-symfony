@@ -38,8 +38,33 @@ class PostFixtures extends Fixture
             $manager->persist($newCategory);
         }
 
-        //Création utilisateurs
+        // Création utilisateurs
+        // Admin
         $usersObjects = [];
+        $newAdmin = new User;
+        $newAdmin
+            ->setFirstname($faker->firstName())
+            ->setLastname($faker->lastName())
+            ->setRoles(['ROLE_ADMIN'])
+            ->setEmail('admin@admin.com')
+            ->setPassword($this->hasher->hashPassword($newAdmin, 'admin'))
+            ->setCreatedAt($faker->dateTimeBetween('-2 months', '-1 month'))
+        ;
+        $manager->persist($newAdmin);
+        $usersObjects[] = $newAdmin;
+
+        // Modérateur
+        $newModerator = new User;
+        $newModerator
+            ->setFirstname($faker->firstName())
+            ->setLastname($faker->lastName())
+            ->setRoles(['ROLE_MODERATOR'])
+            ->setEmail('moderator@moderator.com')
+            ->setPassword($this->hasher->hashPassword($newModerator, 'admin'))
+            ->setCreatedAt($faker->dateTimeBetween('-2 months', '-1 month'))
+        ;
+        $manager->persist($newModerator);
+        $usersObjects[] = $newModerator;
         for ($i = 1; $i <= 10; $i++) {
             $newUser = new User;
             $newUser
