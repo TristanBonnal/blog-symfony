@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Repository\CategoryRepository;
 use App\Repository\PostRepository;
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SearchType;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,20 +14,24 @@ use Symfony\Component\Routing\Annotation\Route;
 class MainController extends AbstractController
 {
     #[Route('/', name: 'home')]
-    public function home(PostRepository $repository): Response
+    public function home(PostRepository $postRepo, CategoryRepository $categoryRepo, UserRepository $userRepo ): Response
     {
-        $posts = $repository->findBy([], ['createdAt' => 'DESC']);
+        $categories = $categoryRepo->findAll();
+        $authors = $userRepo->findAuthors();
+        $posts = $postRepo->findBy([], ['createdAt' => 'DESC']);
         return $this->render('post/list.html.twig',[
             'title' => 'Accueil',
-            'posts' => $posts
+            'posts' => $posts,
+            'authors' => $authors,
+            'categories' => $categories
         ]);
     }
 
     #[Route('/search', name: 'search_bar')]
-    public function search(PostRepository $repository, Request $request): Response
+    public function search(PostRepository $postRepo, Request $request): Response
     {
         $search = $_GET["search"] ?? '';
-        $posts = $repository->findBySearch($search);
+        $posts = $postRepo->findBySearch($search);
         return $this->render('post/list.html.twig', [
             'title' => 'Accueil',
             'posts' => $posts
