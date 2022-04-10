@@ -24,8 +24,8 @@ class MainController extends AbstractController
     #[Route('/search', name: 'search_bar')]
     public function search(PostRepository $repository, Request $request): Response
     {
-        $search = $_GET["search"];
-        $posts = $repository->findBy([], ['createdAt' => 'DESC']);
+        $search = $_GET["search"] ?? '';
+        $posts = $repository->findBySearch($search);
         return $this->render('post/list.html.twig', [
             'title' => 'Accueil',
             'posts' => $posts
