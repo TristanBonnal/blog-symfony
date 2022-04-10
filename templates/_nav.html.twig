@@ -25,8 +25,8 @@
             </li>
             {% endif %}
         </ul>
-        <form action="{{ path('search_bar') }}" class="d-flex">
-            <input class="form-control me-sm-2" type="text" placeholder="Un article ? Un auteur ?">
+        <form method="get" action="{{ path('search_bar') }}" class="d-flex">
+            <input name="search" class="form-control me-sm-2" type="text" placeholder="Un article ? Un auteur ?">
             <button class="btn btn-secondary my-2 my-sm-0" type="submit">Chercher</button>
         </form>
         </div>

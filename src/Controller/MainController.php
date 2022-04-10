@@ -21,18 +21,15 @@ class MainController extends AbstractController
         ]);
     }
 
-    #[Route('/', name: 'search_bar')]
+    #[Route('/search', name: 'search_bar')]
     public function search(PostRepository $repository, Request $request): Response
     {
-        $form = $this->createForm(SearchType::class);
-        $form->handleRequest($request);
+        $search = $_GET["search"];
+        $posts = $repository->findBy([], ['createdAt' => 'DESC']);
+        return $this->render('post/list.html.twig', [
+            'title' => 'Accueil',
+            'posts' => $posts
+        ]);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $posts = $repository->findBy([], ['createdAt' => 'DESC']);
-            return $this->render('post/list.html.twig', [
-                'title' => 'Accueil',
-                'posts' => $posts
-            ]);
-        }
     }
 }
