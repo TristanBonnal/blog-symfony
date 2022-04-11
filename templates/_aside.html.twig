@@ -1,1 +1,10 @@
-<p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Obcaecati, dolore quasi magnam, quam deserunt velit ab, consequatur libero doloremque eius nam quae adipisci iusto enim maiores iste corrupti maxime assumenda!</p>
+<h4>Auteurs</h4>
+{% for author in authors %}
+    <p>{{ author.firstname }}</p>
+{% endfor %}
+
+<h4>Catégories</h4>
+
+{% for categorie in categories %}
+    <p>{{ categorie.title }}</p>
+{% endfor %}
