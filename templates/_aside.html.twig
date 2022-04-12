@@ -9,7 +9,7 @@
     <ul class="list-group my-5">
         <li class="list-group-item bg-secondary">Catégories</li>
         {% for category in categories %}
-            <a href="#" class="list-group-item list-group-item-action" aria-current="true">{{ category.title }}</a>
+            <a href="{{ path('category_posts', {'id': category.id}) }}" class="list-group-item list-group-item-action" aria-current="true">{{ category.title }}</a>
         {% endfor %}
     </ul>
 </aside>
