@@ -6,8 +6,6 @@ use App\Repository\CategoryRepository;
 use App\Repository\PostRepository;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\SearchType;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -28,7 +26,7 @@ class MainController extends AbstractController
     }
 
     #[Route('/search', name: 'search_bar')]
-    public function search(PostRepository $postRepo, Request $request): Response
+    public function search(PostRepository $postRepo): Response
     {
         $search = $_GET["search"] ?? '';
         $posts = $postRepo->findBySearch($search);

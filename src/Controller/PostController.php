@@ -7,7 +7,9 @@ use App\Entity\Comment;
 use App\Entity\Post;
 use App\Form\CommentType;
 use App\Form\PostType;
+use App\Repository\CategoryRepository;
 use App\Repository\PostRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -126,13 +128,19 @@ class PostController extends AbstractController
         return $this->redirectToRoute("home");
     }
 
-
+    /**
+     * Articles triés par utilisateur sélectionné
+     */
     #[Route('/user/list/{id}', name: 'users_posts')]
-    public function postsByUser(User $user): Response
+    public function postsByUser(User $user, CategoryRepository $categoryRepo, UserRepository $userRepo): Response
     {
+        $categories = $categoryRepo->findAll();
+        $authors = $userRepo->findAuthors();
         return $this->render('post/list.html.twig',[
             'title' => 'Accueil',
-            'posts' => $user->getPost()
+            'posts' => $user->getPost(),
+            'authors' => $authors,
+            'categories' => $categories
         ]
     );
     }

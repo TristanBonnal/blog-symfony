@@ -1,10 +1,16 @@
-<h4>Auteurs</h4>
-{% for author in authors %}
-    <p>{{ author.firstname }}</p>
-{% endfor %}
+<aside class="aside ">
+    <ul class="list-group my-3">
+        <li class="list-group-item bg-secondary">Auteurs</li>
+        {% for author in authors %}
+            <a href="{{ path('users_posts', {'id': author.id}) }}" class="list-group-item list-group-item-action" aria-current="true">{{ author.firstname }}</a>
+        {% endfor %}
+    </ul>
+    
+    <ul class="list-group my-5">
+        <li class="list-group-item bg-secondary">Catégories</li>
+        {% for category in categories %}
+            <a href="#" class="list-group-item list-group-item-action" aria-current="true">{{ category.title }}</a>
+        {% endfor %}
+    </ul>
+</aside>
 
-<h4>Catégories</h4>
-
-{% for categorie in categories %}
-    <p>{{ categorie.title }}</p>
-{% endfor %}
