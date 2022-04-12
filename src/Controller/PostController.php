@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Category;
 use App\Entity\User;
 use App\Entity\Comment;
 use App\Entity\Post;
@@ -137,7 +138,19 @@ class PostController extends AbstractController
         return $this->render('post/list.html.twig',[
             'title' => 'Accueil',
             'posts' => $user->getPost(),
-        ]
-    );
+        ]);
+    }
+
+    /**
+     * Articles triés par catégorie sélectionnée
+     */
+    #[Route('/category/list/{id}', name: 'category_posts')]
+    public function postsByCategory(Category $category, PostRepository $repo): Response
+    {
+        $posts = $repo->findByCategory($category);
+        return $this->render('post/list.html.twig',[
+            'title' => 'Accueil',
+            'posts' => $posts
+        ]);
     }
 }
