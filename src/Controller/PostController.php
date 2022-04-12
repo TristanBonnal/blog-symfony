@@ -132,15 +132,11 @@ class PostController extends AbstractController
      * Articles triés par utilisateur sélectionné
      */
     #[Route('/user/list/{id}', name: 'users_posts')]
-    public function postsByUser(User $user, CategoryRepository $categoryRepo, UserRepository $userRepo): Response
+    public function postsByUser(User $user): Response
     {
-        $categories = $categoryRepo->findAll();
-        $authors = $userRepo->findAuthors();
         return $this->render('post/list.html.twig',[
             'title' => 'Accueil',
             'posts' => $user->getPost(),
-            'authors' => $authors,
-            'categories' => $categories
         ]
     );
     }

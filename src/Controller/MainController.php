@@ -12,16 +12,12 @@ use Symfony\Component\Routing\Annotation\Route;
 class MainController extends AbstractController
 {
     #[Route('/', name: 'home')]
-    public function home(PostRepository $postRepo, CategoryRepository $categoryRepo, UserRepository $userRepo ): Response
+    public function home(PostRepository $postRepo): Response
     {
-        $categories = $categoryRepo->findAll();
-        $authors = $userRepo->findAuthors();
         $posts = $postRepo->findBy([], ['createdAt' => 'DESC']);
         return $this->render('post/list.html.twig',[
             'title' => 'Accueil',
             'posts' => $posts,
-            'authors' => $authors,
-            'categories' => $categories
         ]);
     }
 
@@ -34,6 +30,16 @@ class MainController extends AbstractController
             'title' => 'Accueil',
             'posts' => $posts
         ]);
+    }
 
+    public function aside(CategoryRepository $categoryRepo, UserRepository $userRepo): Response
+    {
+        $categories = $categoryRepo->findAll();
+        $authors = $userRepo->findAuthors();
+
+        return $this->render('_aside.html.twig', [
+            'authors' => $authors,
+            'categories' => $categories
+        ]);
     }
 }
