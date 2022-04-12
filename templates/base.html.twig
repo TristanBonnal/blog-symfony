@@ -14,7 +14,9 @@
         <div class="container my-3">
             <div class="row">
                 <div class="col-9">{% block body %}{% endblock %}</div>
-                <div class="col-3">{% include('_aside.html.twig') %}</div>
+
+                {# Charge le aside depuis n'importe où sur le site, grace à la méthode de controller qui récupère automatiquement les données #}
+                <div class="col-3">{{ render(controller('App\\Controller\\MainController::aside')) }}</div>
             </div>
         </div>
 
