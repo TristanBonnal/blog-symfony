@@ -8,9 +8,7 @@ use App\Entity\Comment;
 use App\Entity\Post;
 use App\Form\CommentType;
 use App\Form\PostType;
-use App\Repository\CategoryRepository;
 use App\Repository\PostRepository;
-use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -54,9 +52,15 @@ class PostController extends AbstractController
             'commentForm' => $form
         ]);
 
-     
     }
 
+    /**
+     * Permet l'ajout d'un article si l'utilisateur loggé est moderateur ou admin
+     *
+     * @param Request $request
+     * @param EntityManagerInterface $manager
+     * @return Response
+     */
     #[Route('post/new', name: 'post_new')]
     #[IsGranted('ROLE_MODERATOR')]
     public function create(Request $request, EntityManagerInterface $manager): Response
@@ -83,49 +87,51 @@ class PostController extends AbstractController
         ]);
     }
 
-        #[Route('post/update/{id}', name: 'post_update')]
-        #[IsGranted('ROLE_MODERATOR')]
-        public function update(Request $request, EntityManagerInterface $manager, Post $post = null): Response
-        {
-            if (!$post) {
-                throw $this->createNotFoundException('Cet article n\'existe pas');
-            }
+    /**
+     * Ajout d'un nouveau post à condition d'être un moderateur
+     */
+    #[Route('post/update/{id}', name: 'post_update')]
+    #[IsGranted('ROLE_MODERATOR')]
+    public function update(Request $request, EntityManagerInterface $manager, Post $post = null): Response
+    {
+        if (!$post) {
+            throw $this->createNotFoundException('Cet article n\'existe pas');
+        }
 
-            $this->denyAccessUnlessGranted('POST_EDIT', $post, 'Accès refusé');
+        $this->denyAccessUnlessGranted('POST_EDIT', $post, 'Accès refusé');
 
-            $form = $this->createForm(PostType::class, $post);
-            $form->handleRequest($request);
-    
-            if ($form->isSubmitted() && $form->isValid()) {
-                if ($post->getId()) {
-                    $post->setUpdateAt(new \DateTime);
-                } else {
-                    $post->setCreatedAt(new \DateTime());
-                }
-                $manager->persist($post);
-                $manager->flush();
-    
-                return $this->redirectToRoute('post', ['id' => $post->getId()]);
+        $form = $this->createForm(PostType::class, $post);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            if ($post->getId()) {
+                $post->setUpdateAt(new \DateTime);
+            } else {
+                $post->setCreatedAt(new \DateTime());
             }
+            $manager->persist($post);
+            $manager->flush();
+
+            return $this->redirectToRoute('post', ['id' => $post->getId()]);
+        }
 
         return $this->renderForm('post/form.html.twig', [
             'title' => 'Nouvel article',
             'postForm' => $form,
             'updateForm' => true
-        ]);
+            ]);
     }
 
-
+    /**
+     * Suppression d'un article
+     */
     #[Route("/post/delete/{id}", name: "post_delete", requirements: ["id" => "\d+"])]
     #[IsGranted('ROLE_MODERATOR')]
     public function delete($id, PostRepository $repo, EntityManagerInterface $manager): Response
     {
         $post = $repo->find($id);
-
         $manager->remove($post);
-
         $manager->flush();
-
         return $this->redirectToRoute("home");
     }
 
