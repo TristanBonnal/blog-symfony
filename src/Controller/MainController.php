@@ -37,9 +37,16 @@ class MainController extends AbstractController
         $categories = $categoryRepo->findAll();
         $authors = $userRepo->findAuthors();
 
+        // Récupération de la route et de l'id du lien cliqué, permet dans le template d'afficher dynamiquement la class "active"
+        $route = $this->container->get('request_stack')->getMasterRequest()->get('_route');
+        $route_params = $this->container->get('request_stack')->getMasterRequest()->get('_route_params');
+        if (!empty($route_params)) $route_params = $route_params['id'];
+
         return $this->render('_aside.html.twig', [
             'authors' => $authors,
-            'categories' => $categories
+            'categories' => $categories,
+            'route' => $route,
+            'route_params' => $route_params
         ]);
     }
 }

@@ -2,14 +2,16 @@
     <ul class="list-group my-3">
         <li class="list-group-item bg-secondary">Auteurs</li>
         {% for author in authors %}
-            <a href="{{ path('users_posts', {'id': author.id}) }}" class="list-group-item list-group-item-action" aria-current="true">{{ author.firstname }}</a>
+            <a href="{{ path('users_posts', {'id': author.id}) }}" class="list-group-item list-group-item-action {{route == 'users_posts' and route_params == author.id ? "active"}}" aria-current="true">{{ author.firstname }}</a>
         {% endfor %}
     </ul>
-    
+
     <ul class="list-group my-5">
         <li class="list-group-item bg-secondary">Catégories</li>
         {% for category in categories %}
-            <a href="{{ path('category_posts', {'id': category.id}) }}" class="list-group-item list-group-item-action" aria-current="true">{{ category.title }}</a>
+            <a href="{{ path('category_posts', {'id': category.id}) }}" 
+            class="list-group-item list-group-item-action {{route == 'category_posts' and route_params == category.id ? "active"}}" 
+            aria-current="true">{{ category.title }}</a>
         {% endfor %}
     </ul>
 </aside>
