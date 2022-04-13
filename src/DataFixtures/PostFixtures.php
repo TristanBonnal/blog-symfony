@@ -28,6 +28,8 @@ class PostFixtures extends Fixture
             'Tech',
             'Actu',
             'Web',
+            'Geek',
+            'Science'
         ];
         $categoriesObjects = [];
         foreach ($categories as $category) {
@@ -70,6 +72,7 @@ class PostFixtures extends Fixture
             $newUser
                 ->setFirstname($faker->firstName())
                 ->setLastname($faker->lastName())
+                ->setRoles(['ROLE_MODERATOR'])
                 ->setEmail($faker->email())
                 ->setPassword($this->hasher->hashPassword($newUser, 'admin'))
                 ->setCreatedAt($faker->dateTimeBetween('-2 months', '-1 month'))
