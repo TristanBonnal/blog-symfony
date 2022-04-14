@@ -21,6 +21,8 @@ Working features:
 - Symfony 5.4
 - Twig
 - Bootstrap
+- KnpPaginatorBundle
+- Faker
 
 ## How to install project :hammer:
 
