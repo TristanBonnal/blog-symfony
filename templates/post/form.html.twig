@@ -19,10 +19,11 @@
     {{ form_row(postForm.image, {
         'attr' : {
             'placeholder' : 'URL de l\'image'
-        }, 'label': 'Image'
+        }, 
+        'label': 'Image'
         }) }}
 
-    <button type="submit" class="btn btn-success">
+    <button type="submit" class="btn btn-info">
         {{ updateForm ? 'Enregistrer modifications' : 'Ajouter' }}
     </button>
 
