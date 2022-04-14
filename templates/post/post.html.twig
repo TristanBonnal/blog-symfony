@@ -8,12 +8,12 @@
             <h2>{{ post.title }}</h2>
             <div class="metadata">Ecrit le {{post.createdAt|date('d/m/Y')}} à {{ post.createdAt | date('H:m')}} par <a href="{{path('users_posts', {id: post.user.id})}}">{{ post.user.firstname }}</a>  dans {{ post.category.title }}</div>
             <div class="content">
-                <img class="img-fluid" src="{{ post.image }}" alt="">
+                <img class="img-fluid mt-1 mb-3" src="{{ post.image }}" alt="">
                 <p>{{ post.content }}</p>
                 <p>Id ratione dolorum nemo, eum eius illum voluptas blanditiis quisquam quidem accusamus officia expedita consequuntur tempore dignissimos, odio ducimus harum! Consequatur temporibus quibusdam, facilis enim modi reiciendis illum aliquid libero.</p>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo fugiat recusandae aspernatur provident porro velit iusto eveniet adipisci necessitatibus ratione, atque vero, nemo sapiente deserunt! Repellendus cum ducimus tempora nam maiores, corporis error, odit reprehenderit adipisci, praesentium ipsam. Distinctio vel earum minima optio pariatur eaque totam, praesentium ducimus sit, magni libero deserunt ut expedita accusantium dolore, iure consequuntur nostrum at deleniti corrupti! Repudiandae libero minus saepe asperiores, quas vitae veniam harum dignissimos modi dolores aperiam fugit laboriosam ea vel! Commodi est fuga rem itaque maxime voluptatum modi mollitia accusantium assumenda corrupti, minus fugiat harum unde enim, dignissimos maiores consequatur nihil, vero velit? Nesciunt, doloremque molestias impedit voluptatem qui odit asperiores voluptate hic architecto incidunt sed optio deserunt tempore saepe repudiandae ipsa, provident velit dignissimos obcaecati iusto? Accusamus quam delectus molestias. Fugit consequatur quam molestiae iste. Magni explicabo amet mollitia fugit deleniti, soluta esse animi repellat, corrupti nam qui culpa perspiciatis eos dignissimos. Dolores, ad! Earum necessitatibus quidem ab tenetur inventore, odit modi pariatur? Quas quisquam reprehenderit quae praesentium, minus impedit expedita recusandae quidem nesciunt esse vel iste quo aliquid sequi doloribus error perspiciatis cum ipsum earum at excepturi. Perferendis eaque sit veritatis. Sit, veritatis quod? Cum magnam ducimus earum at!</p>
             </div>
-            <a href="#postComment" class="btn btn-primary">Commenter</a>
+            <a href="#postComment" class="btn btn-info">Commenter</a>
             {% if is_granted('POST_EDIT', post) %}
                 <a href="{{path('post_update', {'id': post.id})}}" class="btn btn-outline-primary">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
