@@ -16,7 +16,11 @@ class CommentType extends AbstractType
     {
         $builder
             ->add('content', TextareaType::class, ['label' => 'Votre message'])
-            ->add('Ajouter', SubmitType::class);
+            ->add('Ajouter', SubmitType::class, [
+                'attr' => [
+                    'class' => 'btn btn-info'
+                ]
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
