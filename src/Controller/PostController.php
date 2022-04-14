@@ -10,6 +10,7 @@ use App\Form\CommentType;
 use App\Form\PostType;
 use App\Repository\PostRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -139,11 +140,19 @@ class PostController extends AbstractController
      * Articles triés par utilisateur sélectionné
      */
     #[Route('/user/list/{id}', name: 'users_posts')]
-    public function postsByUser(User $user): Response
+    public function postsByUser(User $user, Request $request, PaginatorInterface $paginator): Response
     {
+        $posts = $user->getPost();
+
+        // Pagination faite avec le bundle KnpLabs/KnpPaginator
+        $orderedPosts = $paginator->paginate(
+            $posts,
+            $request->query->getInt('page', 1),
+            5
+        );
         return $this->render('post/list.html.twig',[
             'title' => 'Accueil',
-            'posts' => $user->getPost(),
+            'posts' => $orderedPosts,
         ]);
     }
 
@@ -151,12 +160,19 @@ class PostController extends AbstractController
      * Articles triés par catégorie sélectionnée
      */
     #[Route('/category/list/{id}', name: 'category_posts')]
-    public function postsByCategory(Category $category, PostRepository $repo): Response
+    public function postsByCategory(Category $category, PostRepository $repo, Request $request, PaginatorInterface $paginator): Response
     {
         $posts = $repo->findByCategory($category);
+
+        // Pagination faite avec le bundle KnpLabs/KnpPaginator
+        $orderedPosts = $paginator->paginate(
+            $posts,
+            $request->query->getInt('page', 1),
+            5
+        );
         return $this->render('post/list.html.twig',[
             'title' => 'Accueil',
-            'posts' => $posts
+            'posts' => $orderedPosts
         ]);
     }
 }
