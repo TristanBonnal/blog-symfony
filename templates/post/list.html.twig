@@ -31,5 +31,6 @@
         {% else %}
             <p>Aucun article trouvé</p>
         {% endfor %}
+        {{ knp_pagination_render(posts) }}
     </section>
 {% endblock %}
