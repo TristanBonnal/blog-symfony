@@ -3,7 +3,14 @@
 ## The website :computer:
 
 I made this blog while I was learning Symfony with my school. I wanted to practice CRUD, Symfony CLI mainly and security.
-This website is still in progress. For now, you can see what the admin sees, I'm about to manage authorizations and details in the next coming days.
+Working features: 
+-CRUD
+-Authentication/authorizations
+-Roles hierarchy
+-Filters (by author or category)
+-Search bar
+-Pagination
+
 
 ![image info](./blogSC.png)
 
