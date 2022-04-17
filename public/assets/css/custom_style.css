@@ -2,3 +2,12 @@
     background-color:#A2D5F2;
     border-color:#A2D5F2
 }
+
+img {
+    width: 90%;
+}
+
+p {
+    text-align: justify;
+    width: 90%;
+}
