@@ -1,3 +1,8 @@
+body {
+    background: rgb(34,193,195);
+    background: linear-gradient(0deg, rgba(34,193,195,0.17130602240896353) 0%, rgba(255,255,255,0.29175420168067223) 49%, rgba(253,187,45,0.39539565826330536) 100%);
+}
+
 .list-group-item-action.active {
     background-color:#A2D5F2;
     border-color:#A2D5F2
@@ -5,9 +10,20 @@
 
 img {
     width: 90%;
+    border-radius: 3px;
 }
 
 p {
     text-align: justify;
     width: 90%;
 }
+
+.page-item.active .page-link {
+    background-color: rgba(250, 182, 34, 0.5);
+    border-color: rgba(255, 185, 34, 0.5);
+}
+
+.page-link {
+    color: black;
+}
+
