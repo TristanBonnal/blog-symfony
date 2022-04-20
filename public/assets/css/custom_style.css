@@ -19,8 +19,9 @@ p {
 }
 
 .page-item.active .page-link {
-    background-color: rgba(250, 182, 34, 0.5);
+    background-color: rgba(250, 185, 34, 0.5);
     border-color: rgba(255, 185, 34, 0.5);
+    color: black
 }
 
 .page-link {
