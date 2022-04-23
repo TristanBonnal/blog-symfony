@@ -89,7 +89,7 @@ class PostController extends AbstractController
     }
 
     /**
-     * Ajout d'un nouveau post à condition d'être un moderateur
+     * Modification d'un post à condition d'être un l'auteur du billet, ou admin
      */
     #[Route('post/update/{id}', name: 'post_update')]
     #[IsGranted('ROLE_MODERATOR')]
@@ -131,6 +131,7 @@ class PostController extends AbstractController
     public function delete($id, PostRepository $repo, EntityManagerInterface $manager): Response
     {
         $post = $repo->find($id);
+        $this->denyAccessUnlessGranted('POST_DELETE', $post, 'Accès refusé');
         $manager->remove($post);
         $manager->flush();
         return $this->redirectToRoute("home");
